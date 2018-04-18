@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mysql = require('mysql2/promise')
 const account = require('./account')
+const admin = require('./admin')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 
@@ -30,9 +31,23 @@ const connection = await mysql.createConnection({
 
 })
 
+app.use((req, res, next) => {
+
+	if(req.session.user){
+
+		res.locals.user = req.session.user
+	}else{
+
+		res.locals.user = false
+	}
+	next()
+})
+
 app.use(account(connection))
 
-app.listen(3000, err => console.log('Server is running in port 3000'))
+app.use('/admin', admin(connection))
+
+app.listen(3000, err => console.log('Servidor rodando na porta 3000'))
 }
 
 init()

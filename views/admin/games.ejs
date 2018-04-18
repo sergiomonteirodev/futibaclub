@@ -30,7 +30,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
-                            <% include elements/menu %>
+                            <% include ../elements/menu %>
                         
                     </div>
                 </div>
@@ -40,34 +40,47 @@
     <section class="content">
         <div class="container">
             <div class="row">
-                <form class="col" method="post">
-                    <p class="h5 text-center mb-4">Criar uma conta</p>
-                
+                <h2>Gerenciamento de jogos</h2>
+                    
+            </div>
+            <form class="col" method="POST">
+                           
+                        
                     <div class="md-form">
-                        <i class="fa fa-user prefix grey-text"></i>
-                        <input type="text" id="orangeForm-name" class="form-control" name="name">
-                        <label for="orangeForm-name">Seu nome</label>
+                        <i class="fa fa-user prefix grey-textt"></i>
+                        <input type="text"  class="form-control" name="team_a">
+                        <label for="orangeForm-pass">Time A</label>
                     </div>
                     <div class="md-form">
-                        <i class="fa fa-envelope prefix grey-text"></i>
-                        <input type="text" id="orangeForm-email" class="form-control" name="email">
-                        <label for="orangeForm-email">Seu e-mail</label>
-                        <% if (error){ %>
-                            <p>Email já existe!</p>
-                        <% } %>
-                    </div>
-                
-                    <div class="md-form">
-                        <i class="fa fa-lock prefix grey-text"></i>
-                        <input type="password" id="orangeForm-pass" class="form-control" name="passwd">
-                        <label for="orangeForm-pass">Sua senha</label>
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <input type="text" class="form-control" name="team_b">
+                            <label for="orangeForm-pass">Time B</label>
                     </div>
                 
                     <div class="text-center">
-                        <button class="btn btn-deep-orange">Criar conta</button>
+                        <button class="btn btn-deep-orange">Criar Jogo</button>
                     </div>
                 </form>
-            </div>
+
+                <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Jogos</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% games.forEach( game => { %>
+                            <tr>
+                                <th scope="row"><%= game.id %></th>
+                                <td><%= game.team_a %> x <%= game.team_b %></td>
+                                <td><a href="/admin/games/delete/<%=game.id%>">Excluir</a></td>
+                            </tr>
+                            <% }) %>
+                        
+                        </tbody>
+                    </table>
         </div>
     </section>
     
@@ -75,7 +88,7 @@
     
     <footer class="page-footer center-on-small-only">
         <div class="footer-copyright">
-                <% include elements/footer %>
+                <% include ../elements/footer %>
         </div>
     </footer>
 
